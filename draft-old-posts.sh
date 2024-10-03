@@ -18,7 +18,7 @@ run_query() {
     if [ $QUERY_EXIT_CODE -eq 0 ]; then
         # Count the number of lines in the output, excluding the header line
         ROWS_AFFECTED=$(echo "$QUERY_OUTPUT" | tail -n +2 | wc -l)
-        echo "[$(date)] Query successful for $DB_GROUP. Rows affected: $ROWS_AFFECTED" >> $LOGFILE
+        echo "[$(date)] Query successful for $DB_GROUP." # Rows affected: $ROWS_AFFECTED" >> $LOGFILE #rows effected section only showing zero, not sure why
     else
         echo "[$(date)] Error in $DB_GROUP" >> $LOGFILE
     fi
