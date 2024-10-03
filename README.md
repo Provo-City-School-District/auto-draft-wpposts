@@ -1,4 +1,6 @@
 # auto-draft-wpposts
+## Requirements
+- mysql-client
 
 ## .my.cnf file for MySQL/MariaDB
 
