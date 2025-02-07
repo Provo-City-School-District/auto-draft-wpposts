@@ -12,16 +12,16 @@ run_query() {
     local DB_NAME=$2
     local SQL_QUERY=$3
 
-    logger "Running query for DB_GROUP: $DB_GROUP on database: $DB_NAME" >> $LOGFILE
+    logger -t auto-draft "Running query for DB_GROUP: $DB_GROUP on database: $DB_NAME" >> $LOGFILE
 
     # Run the query using MySQL client, referencing the group in .my.cnf
     mysql --defaults-file=.my.cnf --defaults-group-suffix="_$DB_GROUP" "$DB_NAME" -e "$SQL_QUERY"
     QUERY_EXIT_CODE=$?
 
     if [ $QUERY_EXIT_CODE -eq 0 ]; then
-        logger "[$(date)] Query successful for $DB_GROUP on database: $DB_NAME." >> $LOGFILE
+        logger -t auto-draft "[$(date)] Query successful for $DB_GROUP on database: $DB_NAME." >> $LOGFILE
     else
-        logger "[$(date)] Error in $DB_GROUP on database: $DB_NAME" >> $LOGFILE
+        logger -t auto-draft "[$(date)] Error in $DB_GROUP on database: $DB_NAME" >> $LOGFILE
     fi
 }
 
@@ -36,4 +36,4 @@ while IFS='|' read -r DB_GROUP DB_NAME SQL_QUERY; do
     run_query "$DB_GROUP" "$DB_NAME" "$SQL_QUERY"
 done < "$CONFIG_FILE"
 
-logger "[$(date)] Monthly post drafting completed." >> $LOGFILE
+logger -t auto-draft "[$(date)] Monthly post drafting completed." >> $LOGFILE
